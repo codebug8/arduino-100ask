@@ -5,24 +5,39 @@
 # modify it under the terms of the GNU Lesser General Public
 # License as published by the Free Software Foundation; either
 # version 2.1 of the License, or (at your option) any later version.
+
+am335x.name=100ask_am335x
+
+am335x.upload.tool=scp
+am335x.upload.verbose=
+am335x.upload.speed=115200
+
+
+am335x.build.mcu=100ask_am335x
+#am335x.build.f_cpu=
+am335x.build.board=RASPI
+am335x.build.core=piduino
+am335x.build.variant=100ask_am335x
+am335x.build.debug_flags=
+bplus.build.optimization_flags=-O2
+
+##############################################################
+menu.SerialDestination=Serial to Console
+bplus.menu.SerialDestination.disabled=Disabled
+bplus.menu.SerialDestination.disabled.build.extra_flags=-DRASPI
+bplus.menu.SerialDestination.enabled=Enabled
+bplus.menu.SerialDestination.enabled.build.extra_flags=-DRASPI -DSERIAL_TO_CONSOLE
+
+##############################################################
+# Add a menu entry called "Enable gdb" which is used to enable or disable support for the
+# GNU Debugger called "gdb".  Dependening on the settings that that user selects, we either
+# compile with or without the "-g" flag.  Adding the "-g" flag includes symbolic debugging.
+# The symbol "build.debug_flags" get set based on the value the user selects.
 #
-# This library is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the GNU Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public
-# License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
-menu.softdevice=Softdevice
-
-am335x.name=100ask_am335x 
-
-am335x.build.core=
-am335x.build.variant=
-am335x.build.variant_system_lib=
-am335x.build.extra_flags=
-am335x.build.float_flags=-mfloat-abi=hard -mfpu=fpv4-sp-d16
-am335x.build.ldscript=
-
+menu.GDBDebug=Enable gdb
+bplus.menu.GDBDebug.disabled=Disabled
+bplus.menu.GDBDebug.disabled.build.debug_flags=
+bplus.menu.GDBDebug.disabled.build.optimization_flags=-O3
+bplus.menu.GDBDebug.enabled=Enabled
+bplus.menu.GDBDebug.enabled.build.debug_flags=-g
+bplus.menu.GDBDebug.enabled.build.optimization_flags=
