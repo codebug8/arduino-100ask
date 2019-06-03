@@ -12,32 +12,14 @@ am335x.upload.tool=scp
 am335x.upload.verbose=
 am335x.upload.speed=115200
 
-
 am335x.build.mcu=100ask_am335x
-#am335x.build.f_cpu=
+am335x.build.f_cpu=
 am335x.build.board=RASPI
-am335x.build.core=piduino
+am335x.build.core=100ask_am335x
 am335x.build.variant=100ask_am335x
 am335x.build.debug_flags=
-bplus.build.optimization_flags=-O2
+am335x.build.optimization_flags=-O3
 
-##############################################################
-menu.SerialDestination=Serial to Console
-bplus.menu.SerialDestination.disabled=Disabled
-bplus.menu.SerialDestination.disabled.build.extra_flags=-DRASPI
-bplus.menu.SerialDestination.enabled=Enabled
-bplus.menu.SerialDestination.enabled.build.extra_flags=-DRASPI -DSERIAL_TO_CONSOLE
 
-##############################################################
-# Add a menu entry called "Enable gdb" which is used to enable or disable support for the
-# GNU Debugger called "gdb".  Dependening on the settings that that user selects, we either
-# compile with or without the "-g" flag.  Adding the "-g" flag includes symbolic debugging.
-# The symbol "build.debug_flags" get set based on the value the user selects.
-#
-menu.GDBDebug=Enable gdb
-bplus.menu.GDBDebug.disabled=Disabled
-bplus.menu.GDBDebug.disabled.build.debug_flags=
-bplus.menu.GDBDebug.disabled.build.optimization_flags=-O3
-bplus.menu.GDBDebug.enabled=Enabled
-bplus.menu.GDBDebug.enabled.build.debug_flags=-g
-bplus.menu.GDBDebug.enabled.build.optimization_flags=
+am335x.upload.maximum_size=10485760
+am335x.upload.maximum_data_size=10485760

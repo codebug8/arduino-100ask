@@ -1,8 +1,11 @@
-name=100ask_compiler
-version=0.0.1
+name=100ask_am335x
+version=1.1.1
 
 # Toolchain Location
-runtime.tools.toolchain.path={runtime.platform.path}/tools/arm-linux-gnueabihf
+
+
+# Compile tool path
+compiler.path={runtime.tools.gcc-arm-linux-gnueabihf-6.2.1.path}
 runtime.tools.toolchain.prefix=arm-linux-gnueabihf-
 
 compiler.path={runtime.tools.toolchain.path}/bin/
@@ -22,11 +25,16 @@ compiler.warning_flags.more=-Wall
 compiler.warning_flags.all=-Wall -Wextra
 
 compiler.cpreprocessor.flags="-I{runtime.platform.path}/tools/compat/include" -D_GNU_SOURCE
+
 compiler.c.flags=-c -MD -pipe
 compiler.cpp.flags=-c -MD -pipe
+
 compiler.S.flags=-c -g -x assembler-with-cpp -MMD -mlongcalls
-compiler.ar.flags=cru
+
+compiler.ar.flags=crs
+
 compiler.c.elf.flags=
+
 compiler.c.elf.libs=-lpthread -lm
 compiler.objcopy.flags=
 compiler.objcopy.eep.flags=
@@ -53,27 +61,30 @@ recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpreprocessor
 recipe.S.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.cpreprocessor.flags} {build.optimization_flags} {build.debug_flags} {compiler.S.flags} {compiler.warning_flags} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
 
 ## Create archives
-recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{build.path}/arduino.ar" "{object_file}"
+recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} "{archive_file_path}" "{object_file}"
+
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" -o "{build.path}/{build.project_name}.hex" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -Wl,--start-group {object_files} "{build.path}/arduino.ar" {compiler.c.elf.libs} -Wl,--end-group "-L{build.path}"
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" -o "{build.path}/am335x_app" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -Wl,--start-group {object_files} {build.path}/core/main.cpp.o {compiler.c.elf.libs} -Wl,--end-group "-L{build.path}"
+
 
 ## Create hex
-#recipe.objcopy.hex.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.flags} {compiler.objcopy.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
-recipe.objcopy.hex.pattern=
+##recipe.objcopy.hex.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.flags} {compiler.objcopy.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
+##recipe.objcopy.hex.pattern=
 
 ## Create eeprom
-recipe.objcopy.eep.pattern=
+##recipe.objcopy.eep.pattern=
 
 ## Save hex
 recipe.output.tmp_file={build.project_name}.hex
-recipe.output.save_file={build.project_name}.{build.variant}.bin
+#recipe.output.save_file={build.project_name}.{build.variant}.bin
 
 ## Compute size
-recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.hex"
+recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/am335x_app"
 recipe.size.regex=^(?:\.text|\.bss|\.rodata|)\s+([0-9]+).*
 recipe.size.regex.data=^(?:\.data|\.rodata|\.bss)\s+([0-9]+).*
 #recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
+
 
 # ------------------------------
 
