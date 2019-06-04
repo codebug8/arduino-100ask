@@ -5,10 +5,10 @@ version=1.1.1
 
 
 # Compile tool path
-compiler.path={runtime.tools.gcc-arm-linux-gnueabihf-6.2.1.path}
+compiler.path={runtime.tools.gcc-arm-linux-gnueabihf-6.2.1.path}/bin/
 runtime.tools.toolchain.prefix=arm-linux-gnueabihf-
 
-compiler.path={runtime.tools.toolchain.path}/bin/
+
 compiler.c.cmd={runtime.tools.toolchain.prefix}gcc
 compiler.cpp.cmd={runtime.tools.toolchain.prefix}g++
 compiler.S.cmd={runtime.tools.toolchain.prefix}gcc
