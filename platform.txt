@@ -1,4 +1,4 @@
-name=100ask_am335x
+name=100ask modules Compile
 version=1.1.1
 
 # Toolchain Location
