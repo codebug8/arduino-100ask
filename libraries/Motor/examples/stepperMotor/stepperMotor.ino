@@ -14,17 +14,13 @@
 * 4. 调用motorStop()设置电机停止转动；
 * 5. 调用motorReverse()设置电机反向转动，512为一圈；
 */
+#include <Arduino.h>
 #include <motor.h>
 
-void setup()
+int main(int argc, char **argv)
 {
+	MOTOR motor;
 	
-}
-
-void loop()
-{
-	static MOTOR motor;
-
 	motor.setSpeed(2); //0~10
 
 	motor.motorForward(512); //正转一圈

@@ -8,29 +8,30 @@
 * Function:    turn On LED4. 
 * Notes:       none.
 * Description: 
-* 1. 实例化LED，定义为静态类型(防止循环里反复实例化导致LED亮)；
+* 1. 实例化LED,并先关闭；
 * 2. 实例IRDA；
 * 3. 调用readKey()读取按键状态；
 * 4. 如果KEY_1按下，或者长按，打开LED4;
 */
+#include <Arduino.h>
 #include <led.h>
 #include <irda.h>
 
-void setup()
-{
-	
-}
 
-void loop()
+int main(int argc, char **argv)
 {
-	static LED led(LED4); //定义为静态类型(防止循环里反复实例化导致LED亮)
+	LED led(LED4); 
+	led.off();
 
-	static IRDA irda;
+	IRDA irda;
 	irda.readKey();
 	
-	//如果KEY_1按下，或者长按，打开LED4
-	if((irda.code == KEY_1) && (irda.value == 1 || irda.value == 2)) 
-		led.on();
-	else
-		led.off();
+	while(1)
+	{
+		//如果KEY_1按下，或者长按，打开LED4
+		if((irda.code == KEY_1) && (irda.value == 1 || irda.value == 2)) 
+			led.on();
+		else
+			led.off();
+	}
 }

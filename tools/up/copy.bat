@@ -1,4 +1,8 @@
 @echo off
+echo %1
+cd %TEMP%
+
+del  temp.txt new.txt
 
 wmic LogicalDisk where "DriveType='2'" get size /value > temp.txt
 type temp.txt > new.txt
@@ -11,9 +15,12 @@ for /f "tokens=2 delims==" %%i in (new.txt) do (
 )
 :Show
 
-set backdir="%caption%\arduino-100ask"
-echo "%backdir%"
 
-if exist %backdir% ( copy chn_ip.txt   %backdir% ) else (echo "Directory is unknown"  echo !! ) 
+set backdir=%caption%\arduino-100ask
+set arddir=%1
+
+::xcopy %arddir% %backdir%
+if exist %backdir%
+xcopy %arddir% %backdir%
 
 exit

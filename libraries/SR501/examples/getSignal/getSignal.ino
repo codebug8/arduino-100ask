@@ -9,27 +9,26 @@
 * Notes:       none.
 * Description: 
 * 1. 实例化R501；
-* 2. 调用getSignal()判断是否有人，打印对应结果；
+* 2. 循环里，调用getSignal()判断是否有人，打印对应结果；
 */
+#include <Arduino.h>
 #include <sr501.h>
 
-void setup()
+int main(int argc, char **argv)
 {
-	
-}
+	SR501 sr501;
 
-void loop()
-{
-	static SR501 sr501;
-
-	if(sr501.getSignal() == 1)
+	while(1)
 	{
-		cout << "Detected someone!" <<endl;
-		while(sr501.getSignal() == 0);
+		if(sr501.getSignal() == 1)
+		{
+			cout << "Detected someone!" <<endl;
+			while(sr501.getSignal() == 0);
+		}
+		else
+			cout << "No one detected!" <<endl;
+		
+		msleep(200);  
 	}
-	else
-		cout << "No one detected!" <<endl;
-	
-	msleep(200);  
 }
 

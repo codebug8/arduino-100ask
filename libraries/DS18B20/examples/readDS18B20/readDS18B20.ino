@@ -15,9 +15,10 @@
 * 5. 调用readFamilyCode()读取DS18B20的系列编号，并打印；(不重要)
 * 6. 调用readTemperature()读取DS18B20的CRC校验值，并打印；(不重要)
 */
+#include <Arduino.h>
 #include <ds18b20.h>
 
-void setup()
+int main(int argc, char **argv)
 {
 	int i;
 	unsigned char SerialNum[6];
@@ -35,8 +36,5 @@ void setup()
 	cout << "CRC: " <<  ds18b20.readCRC() << endl;
 }
 
-void loop()
-{
-	
-}
+
 

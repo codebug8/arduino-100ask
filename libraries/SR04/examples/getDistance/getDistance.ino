@@ -9,20 +9,19 @@
 * Notes:       none.
 * Description: 
 * 1. 实例化SR04；
-* 2. 调用getDistance()获取距离数据，打印对应结果；
+* 2. 循环里，调用getDistance()获取距离数据，打印对应结果；
 */
+#include <Arduino.h>
 #include <sr04.h>
 
-void setup()
+int main(int argc, char **argv)
 {
-	
-}
+	SR04 sr04;
 
-void loop()
-{
-	static SR04 sr04;
-
-	cout << "distance: " << sr04.getDistance() << "cm" <<endl;
-	msleep(200);
+	while(1)
+	{
+		cout << "distance: " << sr04.getDistance() << "cm" <<endl;
+		msleep(200);
+	}
 }
 

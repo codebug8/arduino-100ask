@@ -13,20 +13,19 @@
 * 3. 调用readHumdity()读取当前环境湿度，并打印；
 * 4. 读取间隔需1S以上；
 */
+#include <Arduino.h>
 #include <dh11.h>
 
-void setup()
+int main(int argc, char **argv)
 {
-	
-}
+	DH11 dh11;
 
-void loop()
-{
-	static DH11 dh11;
-    
-	cout << "Temperature: " << dh11.readTemperature() << "'C" << endl;
-	cout << "Humdity: " << dh11.readHumdity() << "%" << endl;
+	while(1)
+	{
+		cout << "Temperature: " << dh11.readTemperature() << "'C" << endl;
+		cout << "Humdity: " << dh11.readHumdity() << "%" << endl;
 
-	sleep(1);
+		sleep(1);
+	}
 }
 

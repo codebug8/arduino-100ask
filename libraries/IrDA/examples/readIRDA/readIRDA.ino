@@ -39,14 +39,10 @@
 *    按下按键 1
 *    长按按键 2
 */
+#include <Arduino.h>
 #include <irda.h>
 
-void setup()
-{
-	
-}
-
-void loop()
+int main(int argc, char **argv)
 {
 	static IRDA irda(0*32+6);
 

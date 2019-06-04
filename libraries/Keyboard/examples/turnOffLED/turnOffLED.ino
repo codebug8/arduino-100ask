@@ -8,29 +8,29 @@
 * Function:    turn Off LED4. 
 * Notes:       none.
 * Description: 
-* 1. 实例化LED，定义为静态类型(防止循环里反复实例化导致LED亮)；
+* 1. 实例化LED；
 * 2. 实例KEYBOARD；
 * 3. 调用readKey()读取按键状态；
 * 4. 如果KEY4按下，或者长按，关闭LED4;
 */
+#include <Arduino.h>
 #include <led.h>
 #include <keyboard.h>
 
-void setup()
+int main(int argc, char **argv)
 {
-	
-}
+	LED led(LED4); 
 
-void loop()
-{
-	static LED led(LED4); //定义为静态类型(防止循环里反复实例化导致LED亮)
-
-	static KEYBOARD keyboard;
-	keyboard.readKey();
+	KEYBOARD keyboard;
 	
-	//如果KEY4按下，或者长按，关闭LED4
-	if((keyboard.code == KEY4) && (keyboard.value == 1 || keyboard.value == 2)) 
-		led.off();
-	else
-		led.on();
+	while(1)
+	{
+		keyboard.readKey();
+		
+		//如果KEY4按下，或者长按，关闭LED4
+		if((keyboard.code == KEY4) && (keyboard.value == 1 || keyboard.value == 2)) 
+			led.off();
+		else
+			led.on();
+	}
 }

@@ -9,7 +9,7 @@
 * Notes:       none.
 * Description: 
 * 1. 实例化KEYBOARD；
-* 2. 调用readKey()读取按键状态；
+* 2. 循环里，调用readKey()读取按键状态；
 * 3. 打印按键编号(code)和按键值(value)：
 * 4. 按键编号对应如下：
 *    KEY1 105
@@ -21,19 +21,18 @@
 *    按下按键 1
 *    长按按键 2
 */
+#include <Arduino.h>
 #include <keyboard.h>
 
-void setup()
-{
-	
-}
-
-void loop()
+int main(int argc, char **argv)
 {
 	KEYBOARD keyboard;
 	
-	keyboard.readKey();
-	
-	cout << "Code:" << keyboard.code << " Value:" << keyboard.value << endl;
+	while(1)
+	{
+		keyboard.readKey();
+		
+		cout << "Code:" << keyboard.code << " Value:" << keyboard.value << endl;
+	}
 }
 
