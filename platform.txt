@@ -87,10 +87,8 @@ recipe.size.regex.data=^(?:\.data|\.rodata|\.bss)\s+([0-9]+).*
 
 
 # ------------------------------
-
-tools.scp.cmd=echo
-tools.scp.cmd.windows=echo
-tools.scp.upload.protocol=esp
-tools.scp.upload.params.verbose=-vv
-tools.scp.upload.params.quiet=
-tools.scp.upload.pattern="{cmd}" "Upload" "{build.path}/{build.project_name}.hex"
+tools.copy.path=
+tools.copy.cmd.windows=copy.bat
+tools.copy.upload.params.verbose=-d
+tools.copy.upload.params.quiet=
+tools.copy.upload.pattern="{path}/{cmd}"  "{build.path}\am335x_app"
