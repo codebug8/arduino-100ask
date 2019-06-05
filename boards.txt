@@ -8,7 +8,9 @@
 
 am335x.name=100ask_am335x
 
+
 am335x.upload.tool=copy
+am335x.upload.protocol=copy
 am335x.upload.verbose=
 am335x.upload.speed=115200
 

@@ -14,13 +14,14 @@ for /f "tokens=2 delims==" %%i in (new.txt) do (
  )
 )
 :Show
-
-
 set backdir=%caption%\arduino-100ask
 set arddir=%1
+echo %backdir%
 
-::xcopy %arddir% %backdir%
-if exist %backdir%
-xcopy %arddir% %backdir%
+if exist %backdir% (
+xcopy /y %arddir% %backdir% > nul && echo  copy ok !
+)else (
+echo The copy failed, please check if the usb otg device is plugged in!
+)
 
 exit

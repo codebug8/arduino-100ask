@@ -1,14 +1,15 @@
-name=100ask_am335x
+name=100ask modules Compile
 version=1.1.1
 
 # Toolchain Location
 
 
 # Compile tool path
-compiler.path={runtime.tools.gcc-arm-linux-gnueabihf-6.2.1.path}
+
+
+compiler.path={runtime.tools.gcc-arm-linux-gnueabihf-6.2.1.path}/bin/
 runtime.tools.toolchain.prefix=arm-linux-gnueabihf-
 
-compiler.path={runtime.tools.toolchain.path}/bin/
 compiler.c.cmd={runtime.tools.toolchain.prefix}gcc
 compiler.cpp.cmd={runtime.tools.toolchain.prefix}g++
 compiler.S.cmd={runtime.tools.toolchain.prefix}gcc
@@ -88,9 +89,9 @@ recipe.size.regex.data=^(?:\.data|\.rodata|\.bss)\s+([0-9]+).*
 
 # ------------------------------
 
-tools.scp.cmd=echo
-tools.scp.cmd.windows=echo
-tools.scp.upload.protocol=esp
-tools.scp.upload.params.verbose=-vv
-tools.scp.upload.params.quiet=
-tools.scp.upload.pattern="{cmd}" "Upload" "{build.path}/{build.project_name}.hex"
+tools.copy.path={runtime.tools.gcc-arm-linux-gnueabihf-6.2.1.path}/bin/
+tools.copy.cmd=copy
+tools.copy.cmd.windows=copy.bat
+tools.copy.upload.params.verbose= -d
+tools.copy.upload.params.quiet= -q -q
+tools.copy.upload.pattern="{path}/{cmd}"  "{build.path}\am335x_app"
