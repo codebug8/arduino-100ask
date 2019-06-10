@@ -7,23 +7,25 @@
 #define I2C1  "/dev/i2c-1"
 
 #define AT24C256  0x50
-#define RX8025SA  0x68
+#define RX8025SA  0x32
 
 
 class I2C {
 private:
 	static int m_iUseCount;
-	
 	string m_sPath;
 	static int m_iFile;
-	unsigned int m_iDevAddr;
+	
 	
 public:
-
+	unsigned int m_iDevAddr;
+	
 	I2C();
 	I2C(string bus, unsigned int dev);
 	virtual unsigned char readRegister(unsigned int registerAddress);
+	virtual unsigned char readRegister(unsigned int registerAddress, int count, unsigned char* buf);
 	virtual int writeRegister(unsigned int registerAddress, unsigned char value);
+	virtual int writeRegister(unsigned int registerAddress, int count, unsigned char* buf);
 	virtual ~I2C();
 };
 

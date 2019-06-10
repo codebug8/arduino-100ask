@@ -19,18 +19,21 @@
 int main(int argc, char **argv)
 {
 	OLED oled(1);
-	int page=0;
+	int page = 0;
 
-	if(page < 8)
+	while(1)
 	{
-		oled.OLEDPrint(page, 0, "1234567890123456"); 
-		page += 2;
-		sleep(1);   
+		if(page < 8)
+		{
+			oled.OLEDPrint(page, 0, "1234567890123456"); 
+			page += 2;
+			sleep(1);   
+		}
+		else
+		{
+			page = 0;
+			oled.OLEDClearAll();    
+			sleep(1);
+		}	
 	}
-	else
-	{
-		page = 0;
-		oled.OLEDClearAll();    
-		sleep(1);
-	}	
 }

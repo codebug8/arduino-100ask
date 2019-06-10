@@ -71,9 +71,21 @@ int UART::sendData(char *data, int len)
 	return 0;
 }
 
+
+static int uart_fd = -1;
+static void func1(int signal)
+{
+	if (uart_fd > 0)
+		close(uart_fd);		
+
+	uart_fd = -1;
+	exit(0);
+}
+
 int UART::reviceData(char *data, int len)
 {
 	static int i = 0;
+	
 	if (i == 0)
 	{
 		i++;
@@ -83,6 +95,10 @@ int UART::reviceData(char *data, int len)
 		  return -1;
 		}
 	}
+	uart_fd = this->m_iFile;
+	signal(SIGINT, func1);
+	signal(SIGTERM, func1);	
+		
 	
 	if ((read(this->m_iFile, data, len)) < 0) 
 	{  
@@ -90,12 +106,11 @@ int UART::reviceData(char *data, int len)
 	  //msleep(10);
 	  return -1;
 	}
-	
-	//close(this->m_iFile);	
+		
 	return 0;
 }
 
 UART::~UART()
 {
-	
+	close(this->m_iFile);
 }

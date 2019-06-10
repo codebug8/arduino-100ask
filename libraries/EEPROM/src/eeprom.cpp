@@ -7,6 +7,8 @@ EEPROM::EEPROM(int num)
 		I2C(I2C0, AT24C256);
 	else if(num == 2)
 		I2C(I2C1, AT24C256);
+	
+	this->m_iDevAddr = AT24C256; //bug
 }
 
 int EEPROM::readEEPROM(unsigned int addr, unsigned int len, string *rxBuffer)
